@@ -1,0 +1,1 @@
+var app=app||{};$(document).ready(function(){$(".profile-info input[type=radio]").change(function(){var n=$(this).data("url");$.ajax({url:n,method:"get"}).done(function(n){var e=$(n).find(".profile-input-block").children(),i=$(".profile-input-block");i.children().remove(),i.append(e)})})});
