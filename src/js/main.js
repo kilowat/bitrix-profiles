@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    $(".vtip").tipTip({
+        defaultPosition: "right",
+        maxWidth: '340px',
+    });
+
     $('.profile-info input[type=radio]').change(function(){
         var url = $(this).data('url');
         $.ajax({

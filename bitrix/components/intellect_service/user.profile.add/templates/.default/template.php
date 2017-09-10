@@ -1,8 +1,6 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
 <?if(!empty($_SESSION["MSG_PROFILE"])):?>
-	<script type="text/javascript">
-		app.utils.showAlert({title:"Добавление нового профиля", text:"<?=$_SESSION["MSG_PROFILE"]?>"});
-	</script>
+    <?=$_SESSION["MSG_PROFILE"]?>
 	<?unset($_SESSION["MSG_PROFILE"]);?>
 <?endif?>
 <!--start component profile edit-->
@@ -18,7 +16,7 @@
         <?foreach($arResult["PERSON_TYPE"] as $key=>$ptype):?>
         <div class="table-cell">
           <div class="table-cell label-cell">
-              <input type="radio" <?if($ptype["CHECKED"]):?>checked="checked" <?endif?> id="ptype-<?=$ptype["ID"]?>" name="PERSON_TYPE_ID" data-url="<?=$APPLICATION->GetCurPageParam('PERSON_TYPE_ID='.$ptype["ID"],array("PERSON_TYPE_ID"))?>" value="<?=$ptype["ID"]?>">
+              <input type="radio" class="change-p-type" <?if($ptype["CHECKED"]):?>checked="checked" <?endif?> id="ptype-<?=$ptype["ID"]?>" name="PERSON_TYPE_ID" data-url="<?=$APPLICATION->GetCurPageParam('PERSON_TYPE_ID='.$ptype["ID"],array("PERSON_TYPE_ID"))?>" value="<?=$ptype["ID"]?>">
           </div>
           <div class="table-cell">
             <label for="ptype-<?=$ptype["ID"]?>"><?=$ptype["NAME"]?></label>

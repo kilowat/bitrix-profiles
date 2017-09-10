@@ -1,0 +1,1 @@
+var app=app||{};$(document).ready(function(){$(".vtip").tipTip({defaultPosition:"right",maxWidth:"340px"}),$(".profile-info input[type=radio]").change(function(){var i=$(this).data("url");$.ajax({url:i,method:"get"}).done(function(i){var n=$(i).find(".profile-input-block").children(),t=$(".profile-input-block");t.children().remove(),t.append(n)})})});

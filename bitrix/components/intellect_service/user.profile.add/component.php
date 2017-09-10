@@ -67,6 +67,7 @@ if($_POST["save"] && check_bitrix_sessid()){
 		 "USER_ID" => $USER->GetID(),
 		 "PERSON_TYPE_ID" => $PERSON_TYPE_ID,
 	);
+
 	if(count($validateArr) == 0){
 
 		$userProfileProps = array();
@@ -83,9 +84,10 @@ if($_POST["save"] && check_bitrix_sessid()){
 					}
 				}
 				$userProfileProps[] = array(
-				 "USER_PROPS_ID" => false,
-		 	   "ORDER_PROPS_ID" => $PROP_ID,
-		 	   "VALUE" => $request,
+				    "USER_PROPS_ID" => false,
+		 	   	    "ORDER_PROPS_ID" => $PROP_ID,
+		 	        "VALUE" => $request,
+                    "NAME" => $PROP_INFO["NAME"]
 				);
 			}
 		}
