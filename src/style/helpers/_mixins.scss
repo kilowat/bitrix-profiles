@@ -1,0 +1,44 @@
+@mixin clearfix(){
+  &:after{
+    display: block;
+    content: '';
+    clear: both;
+  }
+}
+@mixin table(){
+  .table{
+    display: table;
+  }
+  .table-row{
+    display: table-row;
+  }
+  .table-cell{
+    display: table-cell;
+    &.tip-cell {
+      width: 25px;
+    }
+    &.requare-input{
+      position: relative;
+    }
+    &.requare-input::after {
+      position: absolute;
+      left: -2px;
+      top: 8px;
+      content: "*";
+      color: red;
+      font-size: 1.1em;
+      width: 7px;
+      height: 6px;
+    }
+  }
+}
+@mixin icons(){
+  .ic-info-tip{
+    display: inline-block;
+    @include sprite($ic-info-tip);
+    cursor: pointer;
+    &:hover{
+      @include sprite($ic-info-tip-hover);
+    }
+  }
+}

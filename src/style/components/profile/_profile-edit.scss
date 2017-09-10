@@ -1,0 +1,62 @@
+/*************profile edit***********************/
+.profile-edit{
+
+  @include table();
+  @include inputs();
+  @include icons();
+
+  textarea.grey-input{
+    height: 60px;
+    box-sizing: border-box;
+    padding-top:10px;
+    resize: none;
+  }
+
+  .table{
+    width: 500px;
+    @include breakpoint(max-width 600px){
+      width: 100%;
+    }
+    .table-row{
+      .table-cell{
+        vertical-align: middle;
+        padding: 5px;
+        padding-bottom: 2px;
+        padding-top:2px;
+        font-size: 1em;
+        color: #000;
+        &:first-child{
+          text-align: right;
+          font-weight: 100;
+          width: 150px;
+        }
+      }
+    }
+  }
+  .profile-info{
+    .table{
+      width: auto;
+      .table-cell{
+        text-align: left!important;
+        .label-cell{
+          width: 20px;
+        }
+      }
+    }
+  }
+  .profile-input-block{
+    .profile-input-item{
+      .profile-item-header{
+        font-size: 1.4em;
+        font-size: 400;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        color: #000;
+      }
+    }
+    .detail-link-btn{
+      margin-top: 30px;
+    }
+  }
+}
+

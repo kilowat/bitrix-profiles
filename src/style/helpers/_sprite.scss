@@ -1,0 +1,128 @@
+$ic-add-hover-name: 'ic-add-hover';
+$ic-add-hover-x: 18px;
+$ic-add-hover-y: 18px;
+$ic-add-hover-offset-x: -18px;
+$ic-add-hover-offset-y: -18px;
+$ic-add-hover-width: 15px;
+$ic-add-hover-height: 15px;
+$ic-add-hover-total-width: 51px;
+$ic-add-hover-total-height: 51px;
+$ic-add-hover-image: 'images/sprite.png';
+$ic-add-hover: (18px, 18px, -18px, -18px, 15px, 15px, 51px, 51px, 'images/sprite.png', 'ic-add-hover', );
+$ic-add-name: 'ic-add';
+$ic-add-x: 36px;
+$ic-add-y: 0px;
+$ic-add-offset-x: -36px;
+$ic-add-offset-y: 0px;
+$ic-add-width: 15px;
+$ic-add-height: 15px;
+$ic-add-total-width: 51px;
+$ic-add-total-height: 51px;
+$ic-add-image: 'images/sprite.png';
+$ic-add: (36px, 0px, -36px, 0px, 15px, 15px, 51px, 51px, 'images/sprite.png', 'ic-add', );
+$ic-cancel-hover-name: 'ic-cancel-hover';
+$ic-cancel-hover-x: 36px;
+$ic-cancel-hover-y: 15px;
+$ic-cancel-hover-offset-x: -36px;
+$ic-cancel-hover-offset-y: -15px;
+$ic-cancel-hover-width: 15px;
+$ic-cancel-hover-height: 15px;
+$ic-cancel-hover-total-width: 51px;
+$ic-cancel-hover-total-height: 51px;
+$ic-cancel-hover-image: 'images/sprite.png';
+$ic-cancel-hover: (36px, 15px, -36px, -15px, 15px, 15px, 51px, 51px, 'images/sprite.png', 'ic-cancel-hover', );
+$ic-cancel-name: 'ic-cancel';
+$ic-cancel-x: 0px;
+$ic-cancel-y: 36px;
+$ic-cancel-offset-x: 0px;
+$ic-cancel-offset-y: -36px;
+$ic-cancel-width: 15px;
+$ic-cancel-height: 15px;
+$ic-cancel-total-width: 51px;
+$ic-cancel-total-height: 51px;
+$ic-cancel-image: 'images/sprite.png';
+$ic-cancel: (0px, 36px, 0px, -36px, 15px, 15px, 51px, 51px, 'images/sprite.png', 'ic-cancel', );
+$ic-confirm-name: 'ic-confirm';
+$ic-confirm-x: 15px;
+$ic-confirm-y: 36px;
+$ic-confirm-offset-x: -15px;
+$ic-confirm-offset-y: -36px;
+$ic-confirm-width: 15px;
+$ic-confirm-height: 15px;
+$ic-confirm-total-width: 51px;
+$ic-confirm-total-height: 51px;
+$ic-confirm-image: 'images/sprite.png';
+$ic-confirm: (15px, 36px, -15px, -36px, 15px, 15px, 51px, 51px, 'images/sprite.png', 'ic-confirm', );
+$ic-info-tip-hover-name: 'ic-info-tip-hover';
+$ic-info-tip-hover-x: 0px;
+$ic-info-tip-hover-y: 0px;
+$ic-info-tip-hover-offset-x: 0px;
+$ic-info-tip-hover-offset-y: 0px;
+$ic-info-tip-hover-width: 18px;
+$ic-info-tip-hover-height: 18px;
+$ic-info-tip-hover-total-width: 51px;
+$ic-info-tip-hover-total-height: 51px;
+$ic-info-tip-hover-image: 'images/sprite.png';
+$ic-info-tip-hover: (0px, 0px, 0px, 0px, 18px, 18px, 51px, 51px, 'images/sprite.png', 'ic-info-tip-hover', );
+$ic-info-tip-name: 'ic-info-tip';
+$ic-info-tip-x: 18px;
+$ic-info-tip-y: 0px;
+$ic-info-tip-offset-x: -18px;
+$ic-info-tip-offset-y: 0px;
+$ic-info-tip-width: 18px;
+$ic-info-tip-height: 18px;
+$ic-info-tip-total-width: 51px;
+$ic-info-tip-total-height: 51px;
+$ic-info-tip-image: 'images/sprite.png';
+$ic-info-tip: (18px, 0px, -18px, 0px, 18px, 18px, 51px, 51px, 'images/sprite.png', 'ic-info-tip', );
+$ic-info-name: 'ic-info';
+$ic-info-x: 0px;
+$ic-info-y: 18px;
+$ic-info-offset-x: 0px;
+$ic-info-offset-y: -18px;
+$ic-info-width: 18px;
+$ic-info-height: 18px;
+$ic-info-total-width: 51px;
+$ic-info-total-height: 51px;
+$ic-info-image: 'images/sprite.png';
+$ic-info: (0px, 18px, 0px, -18px, 18px, 18px, 51px, 51px, 'images/sprite.png', 'ic-info', );
+$spritesheet-width: 51px;
+$spritesheet-height: 51px;
+$spritesheet-image: 'images/sprite.png';
+$spritesheet-sprites: ($ic-add-hover, $ic-add, $ic-cancel-hover, $ic-cancel, $ic-confirm, $ic-info-tip-hover, $ic-info-tip, $ic-info, );
+$spritesheet: (51px, 51px, 'images/sprite.png', $spritesheet-sprites, );
+
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
