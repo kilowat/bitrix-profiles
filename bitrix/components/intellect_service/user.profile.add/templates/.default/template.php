@@ -1,4 +1,10 @@
-<?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<?
+    CJSCore::Init(array("jquery"));
+    $templateFolder = $this->GetFolder();
+    Bitrix\Main\Page\Asset::getInstance()->addJs($templateFolder."/vendor.js");
+?>
+
 <?if(!empty($_SESSION["MSG_PROFILE"])):?>
     <?=$_SESSION["MSG_PROFILE"]?>
 	<?unset($_SESSION["MSG_PROFILE"]);?>
@@ -55,12 +61,37 @@
         </div>
         <div class="table">
           <?foreach($grpoup as $item):?>
+              <?$currentValue = $_SESSION["PROFILE"]["FORM_VALUE"][$item["ID"]];?>
           <div class="table-row">
             <div class="table-cell">
               <label for="profile-input-<?=$item["ID"]?>"><?=$item["NAME"]?>:</label>
             </div>
             <div class="table-cell <?if($item["REQUIED"]=="Y"):?>requare-input<?endif?>">
-              <input type="text" name="PROP_<?=$item["ID"]?>" class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>" id="profile-input-<?=$item["ID"]?>" value="<?=$_SESSION["PROFILE"]["FORM_VALUE"][$item["ID"]]?>">
+                <?if($item["TYPE"] === "LOCATION"):?>
+                    <?
+                    CSaleLocation::proxySaleAjaxLocationsComponent(
+                        array(
+                            "AJAX_CALL" => "N",
+                            'CITY_OUT_LOCATION' => 'Y',
+                            'COUNTRY_INPUT_NAME' => 'PROP_'.$item["ID"],
+                            'CITY_INPUT_NAME' => 'PROP_'.$item["ID"],
+                            'LOCATION_VALUE' => '',
+                        )
+                    );
+                    ?>
+                 <?elseif($item["TYPE"] === "TEXT"):?>
+                    <input type="text" name="PROP_<?=$item["ID"]?>" class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>" id="profile-input-<?=$item["ID"]?>" value="<?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?>">
+                 <?elseif($item["TYPE"] === "TEXTARES"):?>
+                    <textarea
+                            class="grey-input"
+                            id="profile-input-<?=$item["ID"]?>"
+                            name="PROP_<?=$item["ID"]?>"><?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?>
+                    </textarea>
+                <?endif?>
+
+
+
+
             </div>
             <div class="table-cell tip-cell">
                 <?if(!empty($item["DESCRIPTION"])):?>

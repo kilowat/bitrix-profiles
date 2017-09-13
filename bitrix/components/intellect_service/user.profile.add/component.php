@@ -40,9 +40,9 @@ $arFilter["ACTIVE"] = "Y";
 	$db_props = CSaleOrderProps::GetList(
 	        array("SORT" => "ASC"),
 					$arFilter,
-	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED"),
+	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE"),
 	        false,
-	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED")
+	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE")
 	    );
 
 	while($profileRes = $db_props->Fetch()){
