@@ -81,14 +81,36 @@
                     ?>
                  <?elseif($item["TYPE"] === "TEXT"):?>
                     <input type="text" name="PROP_<?=$item["ID"]?>" class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>" id="profile-input-<?=$item["ID"]?>" value="<?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?>">
-                 <?elseif($item["TYPE"] === "TEXTARES"):?>
+                 <?elseif($item["TYPE"] === "TEXTAREA"):?>
                     <textarea
                             class="grey-input"
                             id="profile-input-<?=$item["ID"]?>"
-                            name="PROP_<?=$item["ID"]?>"><?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?>
-                    </textarea>
+                            name="PROP_<?=$item["ID"]?>"><?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?></textarea>
+                <?elseif($item["TYPE"] == "CHECKBOX"):?>
+                    <input
+                            class="grey-input""
+                            id="profile-input-<?=$item["ID"]?>"
+                            type="checkbox"
+                            name="PROP_<?=$item["ID"]?>"
+                            value="Y"
+                        <?if ($currentValue == "Y" || !isset($currentValue) && $item["DEFAULT_VALUE"] == "Y") echo " checked";?>/>
+                <?elseif($item["TYPE"] == "SELECT"):?>
+                    <select
+                            class="grey-input"
+                            name="PROP_<?=$item["ID"]?>"
+                            id="profile-input-<?=$item["ID"]?>">
+                        <?
+                        foreach ($item["VALUES"] as $value)
+                        {
+                            ?>
+                            <option value="<?= $value["VALUE"]?>" <?if ($value["VALUE"] == $currentValue || !isset($currentValue) && $value["VALUE"]==$property["DEFAULT_VALUE"]) echo " selected"?>>
+                                <?= $value["NAME"]?>
+                            </option>
+                            <?
+                        }
+                        ?>
+                    </select>
                 <?endif?>
-
 
 
 

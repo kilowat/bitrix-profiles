@@ -49,6 +49,23 @@ $arFilter["ACTIVE"] = "Y";
 		if ($arPropsGroup = CSaleOrderPropsGroup::GetByID($profileRes["PROPS_GROUP_ID"]))
 			$groupName = $arPropsGroup["NAME"];
 
+		switch($profileRes["TYPE"]){
+			case "SELECT":
+                $dbVarsSelect = CSaleOrderPropsVariant::GetList(
+                    array("SORT" => "ASC"),
+                    array("ORDER_PROPS_ID" => $profileRes["ID"])
+                );var_dump($dbVarsSelectValues = $dbVarsSelect->Fetch());
+                while ($dbVarsSelectValues = $dbVarsSelect->Fetch())
+                {
+                    var_dump($dbVarsSelectValues);
+                    $profileRes["VALUES"][] = $dbVarsSelectValues;
+                }
+				//var_dump($profileRes);
+				break;
+		}
+
+		//var_dump($profileRes);
+
 		$arResult["PROFILE_PROPS"][$groupName][] = $profileRes;
 	}
 
