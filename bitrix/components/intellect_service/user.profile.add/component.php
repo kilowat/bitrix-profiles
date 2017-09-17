@@ -40,9 +40,9 @@ $arFilter["ACTIVE"] = "Y";
 	$db_props = CSaleOrderProps::GetList(
 	        array("SORT" => "ASC"),
 					$arFilter,
-	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE"),
+	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE", "MULTIPLE"),
 	        false,
-	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE")
+	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE", "MULTIPLE")
 	    );
 
 	while($profileRes = $db_props->Fetch()){
@@ -54,14 +54,25 @@ $arFilter["ACTIVE"] = "Y";
                 $dbVarsSelect = CSaleOrderPropsVariant::GetList(
                     array("SORT" => "ASC"),
                     array("ORDER_PROPS_ID" => $profileRes["ID"])
-                );var_dump($dbVarsSelectValues = $dbVarsSelect->Fetch());
+                );
                 while ($dbVarsSelectValues = $dbVarsSelect->Fetch())
                 {
-                    var_dump($dbVarsSelectValues);
                     $profileRes["VALUES"][] = $dbVarsSelectValues;
                 }
-				//var_dump($profileRes);
+
 				break;
+            case "MULTISELECT":
+                $dbVarsSelect = CSaleOrderPropsVariant::GetList(
+                    array("SORT" => "ASC"),
+                    array("ORDER_PROPS_ID" => $profileRes["ID"])
+                );
+                while ($dbVarsSelectValues = $dbVarsSelect->Fetch())
+                {
+                    $profileRes["VALUES"][] = $dbVarsSelectValues;
+                }
+
+                break;
+
 		}
 
 		//var_dump($profileRes);

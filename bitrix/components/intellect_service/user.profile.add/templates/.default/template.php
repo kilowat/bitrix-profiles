@@ -103,13 +103,37 @@
                         foreach ($item["VALUES"] as $value)
                         {
                             ?>
-                            <option value="<?= $value["VALUE"]?>" <?if ($value["VALUE"] == $currentValue || !isset($currentValue) && $value["VALUE"]==$property["DEFAULT_VALUE"]) echo " selected"?>>
+                            <option value="<?= $value["VALUE"]?>" <?if ($value["VALUE"] == $currentValue || !isset($currentValue) && $value["VALUE"]==$item["DEFAULT_VALUE"]) echo " selected"?>>
                                 <?= $value["NAME"]?>
                             </option>
                             <?
                         }
                         ?>
                     </select>
+
+                <?elseif($item["TYPE"] == "MULTISELECT"):?>
+
+                    <select
+                            class="grey-input"
+                            id="sppd-property-<?=$key?>"
+                            multiple name="PROP_<?=$item["ID"]?>[]">
+                        <?
+                        $arCurVal = array();
+                        $arCurVal = explode(",", $currentValue);
+                        for ($i = 0, $cnt = count($arCurVal); $i < $cnt; $i++)
+                            $arCurVal[$i] = trim($arCurVal[$i]);
+                        $arDefVal = $item["DEFAULT_VALUE"];
+                        for ($i = 0, $cnt = count($arDefVal); $i < $cnt; $i++)
+                            $arDefVal[$i] = trim($arDefVal[$i]);
+                        foreach($item["VALUES"] as $value)
+                        {
+                            ?>
+                            <option value="<?= $value["VALUE"]?>"<?if (in_array($value["VALUE"], $arCurVal) || !isset($currentValue) && in_array($value["VALUE"], $arDefVal)) echo" selected"?>><?echo $value["NAME"]?></option>
+                            <?
+                        }
+                        ?>
+                    </select>
+
                 <?endif?>
 
 
