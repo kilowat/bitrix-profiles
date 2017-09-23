@@ -1,8 +1,6 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 CModule::IncludeModule("sale");
 
-$APPLICATION->AddChainItem("Добавление профиля покупателя");
-
 global
 $arFilter;
 
@@ -26,7 +24,6 @@ foreach($arResult["PERSON_TYPE"] as &$persType){
 		}
 	}
 }
-
 
 if(!empty($_REQUEST["PERSON_TYPE_ID"])){
 		$arFilter["PERSON_TYPE_ID"] = $_REQUEST["PERSON_TYPE_ID"];
@@ -75,8 +72,6 @@ $arFilter["ACTIVE"] = "Y";
 
 		}
 
-		//var_dump($profileRes);
-
 		$arResult["PROFILE_PROPS"][$groupName][] = $profileRes;
 	}
 
@@ -105,8 +100,13 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 				$PROP_ID = explode("_", $key)[1];
                 $PROP_TYPE = explode("_", $key)[2];
 
-                if($PROP_TYPE == "FILE")
+                if($PROP_TYPE == "FILE"){
                     $request = serialize($request);
+				}
+
+                if($PROP_TYPE == "MULTISELECT"){
+                    $request = implode(",",$request);
+                }
 
                 $PROP_INFO = CSaleOrderProps::GetByID($PROP_ID);
 				$_SESSION["PROFILE"]["FORM_VALUE"][$PROP_ID] = $request;
@@ -136,14 +136,14 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 					$_SESSION["MSG_PROFILE"] = "При добавлении профиля возникла ошибка, попробуйте позже или обратитесь в техническую поддержку";
 				}
 				unset($_SESSION["PROFILE"]);
-
 			}
 		}else{
 			$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
+            $_SESSION["MSG_PROFILE"] = "Вы не заполнели все обязательные поля";
 		}
 
 	}else{
-		$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
+		$_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
 	}
 	$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
 }

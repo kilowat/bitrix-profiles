@@ -86,22 +86,22 @@
 
                 <?elseif($item["TYPE"] === "TEXTAREA"):?>
                     <textarea
-                            class="grey-input"
+                            class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>"
                             id="profile-input-<?=$item["ID"]?>"
                             name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"><?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?></textarea>
 
                 <?elseif($item["TYPE"] == "CHECKBOX"):?>
                     <input
-                            class="grey-input""
+                            class="check-box-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>"
                             id="profile-input-<?=$item["ID"]?>"
                             type="checkbox"
                             name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
                             value="Y"
                         <?if ($currentValue == "Y" || !isset($currentValue) && $item["DEFAULT_VALUE"] == "Y") echo " checked";?>/>
 
-                <?elseif($item["TYPE"] == "SELECT"):?>
+                <?elseif($item["TYPE"] == "SELECT "):?>
                     <select
-                            class="grey-input"
+                            class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>"
                             name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
                             id="profile-input-<?=$item["ID"]?>">
                         <?
@@ -118,7 +118,7 @@
 
                 <?elseif($item["TYPE"] == "MULTISELECT"):?>
                     <select
-                            class="grey-input"
+                            class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>"
                             id="profile-input-<?=$item["ID"]?>"
                             multiple name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>[]">
                         <?
@@ -143,7 +143,7 @@
                     {
                     ?>
                     <input
-                            class="grey-input"
+                            class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>"
                             type="radio"
                             id="profile-input-<?=$item["ID"]?>">
                             name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
