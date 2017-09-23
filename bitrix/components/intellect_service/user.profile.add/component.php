@@ -40,9 +40,9 @@ $arFilter["ACTIVE"] = "Y";
 	$db_props = CSaleOrderProps::GetList(
 	        array("SORT" => "ASC"),
 					$arFilter,
-	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE", "MULTIPLE"),
+	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE", "MULTIPLE", "SETTINGS"),
 	        false,
-	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE", "MULTIPLE")
+	        array('PROPS_GROUP_ID',"NAME","ID","DESCRIPTION","REQUIED", "TYPE", "DEFAULT_VALUE", "MULTIPLE", "SETTINGS")
 	    );
 
 	while($profileRes = $db_props->Fetch()){
@@ -81,7 +81,7 @@ $arFilter["ACTIVE"] = "Y";
 	}
 
 
-if($_POST["save"] && check_bitrix_sessid()){
+if(!empty($_POST["save"]) && check_bitrix_sessid()){
 
 	$_SESSION["PROFILE"]["FORM_VALUE"][0] = $_REQUEST["PROFILE_NAME"];
 
@@ -100,11 +100,15 @@ if($_POST["save"] && check_bitrix_sessid()){
 
 		$userProfileProps = array();
 
-		foreach($_REQUEST as $key=>$request){
+		foreach($_REQUEST as $key=>&$request){
 			if(preg_match('/PROP_/', $key)){
 				$PROP_ID = explode("_", $key)[1];
+                $PROP_TYPE = explode("_", $key)[2];
 
-				$PROP_INFO = CSaleOrderProps::GetByID($PROP_ID);
+                if($PROP_TYPE == "FILE")
+                    $request = serialize($request);
+
+                $PROP_INFO = CSaleOrderProps::GetByID($PROP_ID);
 				$_SESSION["PROFILE"]["FORM_VALUE"][$PROP_ID] = $request;
 				if($PROP_INFO["REQUIED"] == "Y"){
 					if(empty($request)){

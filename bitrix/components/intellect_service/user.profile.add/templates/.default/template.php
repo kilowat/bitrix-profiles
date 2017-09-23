@@ -1,5 +1,6 @@
 <? if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
 <?
+    use Bitrix\Main\Localization\Loc;
     CJSCore::Init(array("jquery"));
     $templateFolder = $this->GetFolder();
     Bitrix\Main\Page\Asset::getInstance()->addJs($templateFolder."/vendor.js");
@@ -67,6 +68,7 @@
               <label for="profile-input-<?=$item["ID"]?>"><?=$item["NAME"]?>:</label>
             </div>
             <div class="table-cell <?if($item["REQUIED"]=="Y"):?>requare-input<?endif?>">
+
                 <?if($item["TYPE"] === "LOCATION"):?>
                     <?
                     CSaleLocation::proxySaleAjaxLocationsComponent(
@@ -80,24 +82,27 @@
                     );
                     ?>
                  <?elseif($item["TYPE"] === "TEXT"):?>
-                    <input type="text" name="PROP_<?=$item["ID"]?>" class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>" id="profile-input-<?=$item["ID"]?>" value="<?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?>">
-                 <?elseif($item["TYPE"] === "TEXTAREA"):?>
+                    <input type="text" name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>" class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>" id="profile-input-<?=$item["ID"]?>" value="<?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?>">
+
+                <?elseif($item["TYPE"] === "TEXTAREA"):?>
                     <textarea
                             class="grey-input"
                             id="profile-input-<?=$item["ID"]?>"
-                            name="PROP_<?=$item["ID"]?>"><?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?></textarea>
+                            name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"><?=(isset($currentValue)) ? $currentValue : $item["DEFAULT_VALUE"];?></textarea>
+
                 <?elseif($item["TYPE"] == "CHECKBOX"):?>
                     <input
                             class="grey-input""
                             id="profile-input-<?=$item["ID"]?>"
                             type="checkbox"
-                            name="PROP_<?=$item["ID"]?>"
+                            name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
                             value="Y"
                         <?if ($currentValue == "Y" || !isset($currentValue) && $item["DEFAULT_VALUE"] == "Y") echo " checked";?>/>
+
                 <?elseif($item["TYPE"] == "SELECT"):?>
                     <select
                             class="grey-input"
-                            name="PROP_<?=$item["ID"]?>"
+                            name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
                             id="profile-input-<?=$item["ID"]?>">
                         <?
                         foreach ($item["VALUES"] as $value)
@@ -112,11 +117,10 @@
                     </select>
 
                 <?elseif($item["TYPE"] == "MULTISELECT"):?>
-
                     <select
                             class="grey-input"
-                            id="sppd-property-<?=$key?>"
-                            multiple name="PROP_<?=$item["ID"]?>[]">
+                            id="profile-input-<?=$item["ID"]?>"
+                            multiple name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>[]">
                         <?
                         $arCurVal = array();
                         $arCurVal = explode(",", $currentValue);
@@ -134,9 +138,36 @@
                         ?>
                     </select>
 
+                <?elseif($item["TYPE"] == "RADIO"):?>
+                    <?foreach($property["VALUES"] as $value)
+                    {
+                    ?>
+                    <input
+                            class="grey-input"
+                            type="radio"
+                            id="profile-input-<?=$item["ID"]?>">
+                            name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
+                            value="<?echo $value["VALUE"]?>"
+                        <?if ($value["VALUE"] == $currentValue || !isset($currentValue) && $value["VALUE"] == $property["DEFAULT_VALUE"]) echo " checked"?>>
+                    <?= $value["NAME"]?><br />
+
+                <?}?>
+
+                <?elseif($item["TYPE"] == "FILE"):?>
+
+                    <?$APPLICATION->IncludeComponent("bitrix:main.file.input", "drag_n_drop",
+                        array(
+                            "INPUT_NAME"=>'PROP_'.$item["ID"]."_FILE",
+                            "MULTIPLE"=>$property["MULTIPLE"],
+                            "MODULE_ID"=>"main",
+                            "MAX_FILE_SIZE"=>$item["SETTINGS"]["MAXSIZE"],
+                            "ALLOW_UPLOAD"=>"F",
+                            "ALLOW_UPLOAD_EXT"=>$item["SETTINGS"]["ACCEPT"],
+                        ),
+                        false
+                    );?>
+
                 <?endif?>
-
-
 
             </div>
             <div class="table-cell tip-cell">
@@ -155,5 +186,5 @@
     </div>
   </form>
 </div>
-<?//unset($_SESSION["PROFILE"])?>
+<?unset($_SESSION["PROFILE"])?>
 <!--end component profile edit-->
