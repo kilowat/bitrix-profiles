@@ -38,18 +38,18 @@
 
       <div class="profile-input-item">
         <div class="profile-item-header">
-          Данные профиля
+            <?=Loc::getMessage('CP_DATA_PROFILE')?>
         </div>
         <div class="table">
           <div class="table-row">
             <div class="table-cell">
-              <label for="profile-input-zero">Название профиля:</label>
+              <label for="profile-input-zero"><?=Loc::getMessage('CP_NAME_PROFILE')?>:</label>
             </div>
             <div class="table-cell requare-input">
               <input type="text" name="PROFILE_NAME" class="grey-input <?if(in_array(0,$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>" id="profile-input-0" value="<?=$_SESSION["PROFILE"]["FORM_VALUE"][0]?>">
             </div>
             <div class="table-cell tip-cell">
-              <i class="ic-info-tip vtip" title="Удобное для Вас название профиля покупателя">
+              <i class="ic-info-tip vtip" title="<?=Loc::getMessage('CP_CREATE_PROFILE')?>">
               </i>
             </div>
           </div>
@@ -99,7 +99,7 @@
                             value="Y"
                         <?if ($currentValue == "Y" || !isset($currentValue) && $item["DEFAULT_VALUE"] == "Y") echo " checked";?>/>
 
-                <?elseif($item["TYPE"] == "SELECT "):?>
+                <?elseif($item["TYPE"] == "SELECT"):?>
                     <select
                             class="grey-input <?if(in_array($item["ID"],$_SESSION["PROFILE"]["VALIDATE"])):?>error<?endif?>"
                             name="PROP_<?=$item["ID"]?>_<?=$item["TYPE"]?>"
@@ -181,7 +181,7 @@
       </div>
       <?endforeach?>
       <div class="row text-center">
-        <button type="submit" name="save" value="Y" class="detail-link-btn">Добавить</button>
+        <button type="submit" name="save" value="Y" class="detail-link-btn"><?=Loc::getMessage('CP_ADD_PROFILE')?></button>
       </div>
     </div>
   </form>

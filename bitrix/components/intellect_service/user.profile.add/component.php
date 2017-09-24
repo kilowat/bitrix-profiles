@@ -7,7 +7,8 @@ $arFilter;
 $validateArr = array();
 //get person type
 $db_ptype = CSalePersonType::GetList(Array("SORT" => "DESC"), Array("LID"=>SITE_ID));
-$bFirst = True;
+$bFirst = true;
+
 while ($ptype = $db_ptype->Fetch())
 {
 	$ptype["CHECKED"] = false;
@@ -69,12 +70,9 @@ $arFilter["ACTIVE"] = "Y";
                 }
 
                 break;
-
 		}
-
 		$arResult["PROFILE_PROPS"][$groupName][] = $profileRes;
 	}
-
 
 if(!empty($_POST["save"]) && check_bitrix_sessid()){
 
@@ -83,6 +81,7 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 	if(empty($_REQUEST["PROFILE_NAME"])){
 		$validateArr[] = 0; // 0 -is profile name id
 	}
+
 	$PERSON_TYPE_ID = intval($_REQUEST["PERSON_TYPE_ID"]);
 
 	$arFields = array(
@@ -92,7 +91,6 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 	);
 
 	if(count($validateArr) == 0){
-
 		$userProfileProps = array();
 
 		foreach($_REQUEST as $key=>&$request){
@@ -110,11 +108,13 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 
                 $PROP_INFO = CSaleOrderProps::GetByID($PROP_ID);
 				$_SESSION["PROFILE"]["FORM_VALUE"][$PROP_ID] = $request;
+
 				if($PROP_INFO["REQUIED"] == "Y"){
 					if(empty($request)){
 						$validateArr[] = $PROP_ID;
 					}
 				}
+
 				$userProfileProps[] = array(
 				    "USER_PROPS_ID" => false,
 		 	   	    "ORDER_PROPS_ID" => $PROP_ID,
@@ -124,24 +124,23 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 			}
 		}
 		if(count($validateArr) == 0){
-
 			$USER_PROPS_ID = CSaleOrderUserProps::Add($arFields);
+
 			foreach($userProfileProps as $addProps){
 				$addProps["USER_PROPS_ID"] = $USER_PROPS_ID;
 				CSaleOrderUserPropsValue::Add($addProps);
 				if($USER_PROPS_ID){
-					$_SESSION["MSG_PROFILE"] = "Новый профиль покупателя успешно добавлен";
+					$_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_CREATED');
 
 				}else{
-					$_SESSION["MSG_PROFILE"] = "При добавлении профиля возникла ошибка, попробуйте позже или обратитесь в техническую поддержку";
+					$_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_ERROR');
 				}
 				unset($_SESSION["PROFILE"]);
 			}
 		}else{
 			$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
-            $_SESSION["MSG_PROFILE"] = "Вы не заполнели все обязательные поля";
+            $_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_EMPTY');
 		}
-
 	}else{
 		$_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
 	}
@@ -151,4 +150,3 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 $this->IncludeComponentTemplate();
 
 unset($_SESSION["PROFILE"]);
-?>

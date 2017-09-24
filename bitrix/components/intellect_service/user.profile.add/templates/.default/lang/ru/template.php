@@ -11,4 +11,9 @@ $MESS ["SPPD_DELETE_FILE"]="Удалить файл";
 $MESS ["SPPD_SELECT"]="Выбрать";
 $MESS ["SPPD_FILE_NOT_SELECTED"]="Файл не выбран";
 $MESS ["SPPD_FILE_COUNT"]="Выбрано файлов: ";
+$MESS ["CP_CREATE_PROFILE"]="Название для нового профиля";
+$MESS ["CP_NAME_PROFILE"]="Название профиля";
+$MESS ["CP_ADD_PROFILE"]="Добавить";
+$MESS ["CP_DATA_PROFILE"]="Данные профиля";
+
 ?>
