@@ -1,6 +1,8 @@
 <? if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 CModule::IncludeModule("sale");
 
+use Bitrix\Main\Localization\Loc;
+
 global
 $arFilter;
 
@@ -142,6 +144,7 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
             $_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_EMPTY');
 		}
 	}else{
+        $_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_EMPTY');
 		$_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
 	}
 	$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
