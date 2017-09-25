@@ -125,6 +125,7 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 				);
 			}
 		}
+
 		if(count($validateArr) == 0){
 			$USER_PROPS_ID = CSaleOrderUserProps::Add($arFields);
 
@@ -145,7 +146,7 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 		}
 	}else{
         $_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_EMPTY');
-		$_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
+        $_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
 	}
 	$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
 }
