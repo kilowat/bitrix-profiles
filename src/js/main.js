@@ -3,6 +3,7 @@ $(document).ready(function(){
     $(".vtip").tipTip({
         defaultPosition: "right",
         maxWidth: '340px',
+        delay: 100,
     });
 
     $('.profile-info input[type=radio]').change(function(){
@@ -15,6 +16,12 @@ $(document).ready(function(){
             var $container = $('.profile-input-block');
             $container.children().remove();
             $container.append($items);
+            
+            $(".vtip").tipTip({
+                defaultPosition: "right",
+                maxWidth: '340px',
+                delay: 100,
+            });
         });
     });
 
