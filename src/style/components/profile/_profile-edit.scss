@@ -5,6 +5,7 @@
   @include inputs();
   @include icons();
   margin-bottom: 20px;
+
   textarea.grey-input{
     height: 60px;
     box-sizing: border-box;
@@ -47,7 +48,6 @@
     .profile-input-item{
       .profile-item-header{
         font-size: 1.4em;
-        font-size: 400;
         margin-top: 40px;
         margin-bottom: 20px;
         color: #000;
@@ -98,6 +98,13 @@
        top:1px;
      }
   }
-
 }
-
+.msg-header{
+  font-size:1.3em;
+}
+.created_error{
+  color:red;
+}
+.created_ok{
+  color: green;
+}
