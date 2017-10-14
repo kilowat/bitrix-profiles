@@ -134,21 +134,25 @@ if(!empty($_POST["save"]) && check_bitrix_sessid()){
 				CSaleOrderUserPropsValue::Add($addProps);
 				if($USER_PROPS_ID){
 					$_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_CREATED');
+					$_SESSION["MSG_PROFILE_TYPE"] = "created_ok";
 
 				}else{
 					$_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_ERROR');
+                    $_SESSION["MSG_PROFILE_TYPE"] = "created_error";
 				}
 				unset($_SESSION["PROFILE"]);
 			}
 		}else{
 			$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
             $_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_EMPTY');
+            $_SESSION["MSG_PROFILE_TYPE"] = "created_error";
 		}
 	}else{
         $_SESSION["MSG_PROFILE"] = Loc::getMessage('CP_MESSAGE_EMPTY');
+        $_SESSION["MSG_PROFILE_TYPE"] = "created_error";
         $_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
 	}
-	$_SESSION["PROFILE"]["VALIDATE"]= $validateArr;
+	$_SESSION["PROFILE"]["VALIDATE"] = $validateArr;
 }
 
 $this->IncludeComponentTemplate();

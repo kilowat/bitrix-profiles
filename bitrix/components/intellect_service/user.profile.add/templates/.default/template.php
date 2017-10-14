@@ -7,7 +7,7 @@
 ?>
 
 <?if(!empty($_SESSION["MSG_PROFILE"])):?>
-    <p style="color:red"><?=$_SESSION["MSG_PROFILE"]?></p>
+    <p class="msg-header <?=$_SESSION["MSG_PROFILE_TYPE"]?>"><?=$_SESSION["MSG_PROFILE"]?></p>
 	<?unset($_SESSION["MSG_PROFILE"]);?>
 <?endif?>
 <!--start component profile edit-->

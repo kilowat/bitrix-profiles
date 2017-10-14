@@ -15,5 +15,4 @@ $MESS ["CP_CREATE_PROFILE"]="Название для нового профиля
 $MESS ["CP_NAME_PROFILE"]="Название профиля";
 $MESS ["CP_ADD_PROFILE"]="Добавить";
 $MESS ["CP_DATA_PROFILE"]="Данные профиля";
-
 ?>
